@@ -4,6 +4,6 @@ osx_image: xcode10.2
 #    - brew install danger/tap/danger-swift
 script:
 #    - danger-swift ci
-    - xcodebuild test -project SampleDanger.xcodeproj -scheme SampleDanger -destination 'platform=iOS Simulator,name=iPhone 8,OS=12.2'
+    - xcodebuild test -project /SampleDanger/SampleDanger.xcodeproj -scheme SampleDanger -destination 'platform=iOS Simulator,name=iPhone 8,OS=12.2'
 after_success:
     - bash <(curl -s https://codecov.io/bash)
