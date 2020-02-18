@@ -7,6 +7,5 @@ SwiftLint.lint()
 let editedFiles = danger.git.modifiedFiles + danger.git.createdFiles
 let editedAppFiles = editedFiles.filter { $0.contains("/App") }
 message("Files:-\(editedFiles)")
-SwiftLint.lint(inline: true)
 
 message("Hello, this worked")
