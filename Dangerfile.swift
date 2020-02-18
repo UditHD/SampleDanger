@@ -1,6 +1,7 @@
 import Danger 
 let danger = Danger()
-SwiftLint.lint()
+//SwiftLint.lint()
+SwiftLint.lint(inline: true)
 // Instead of making a markdown table in the main message
 // sprinkle those comments inline, this can be a bit noisy
 // but it definitely feels magical.
