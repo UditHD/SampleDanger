@@ -12,8 +12,16 @@ class ViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+     print("checkdfgh")
+     print("checkdfgh")
+     print("checkdfgh")
+     print("checkdfgh")
+     print("checkdfgh")
+     
     // Do any additional setup after loading the view.
   }
+  
+  
 
 
 }

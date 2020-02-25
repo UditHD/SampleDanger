@@ -1,7 +1,3 @@
-disabled_rules:
-  - line_length
-  - type_body_length
-  - identifier_name
 opt_in_rules:
   - closure_spacing
   - closure_end_indentation
@@ -15,7 +11,7 @@ opt_in_rules:
   - convenience_type
   - discouraged_object_literal
   - discouraged_optional_boolean
-#  - empty_count
+  - empty_count
   - empty_string
   - fallthrough
   - file_name_no_space
