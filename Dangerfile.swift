@@ -34,7 +34,7 @@ if let github = danger.github {
       message("MR change count \(additions)")
     }
   }
-  if github.pullRequest.body?.count ?? 0 < 5 {
+  if github.pullRequest.body?.count ?? 0 < 10 {
     fail("MR Description is too short")
   } else {
     message("\(github.pullRequest.body ?? "No message")")
