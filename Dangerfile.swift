@@ -3,7 +3,7 @@ import Foundation
 
 let danger = Danger()
 //SwiftLint.lint()
-if danger.git.createdFiles.count + danger.git.modifiedFiles.count - danger.git.deletedFiles.count > 300 {
+if danger.git.createdFiles.count + danger.git.modifiedFiles.count - danger.git.deletedFiles.count > 5 {
     warn("Big PR, try to keep changes smaller if you can")
 }
 
@@ -11,7 +11,6 @@ let swiftFilesWithCopyright = danger.git.createdFiles.filter {
     $0.fileType == .swift
         && danger.utils.readFile($0).contains("//  Created by")
 }
-
 if !swiftFilesWithCopyright.isEmpty {
     let files = swiftFilesWithCopyright.joined(separator: ", ")
     warn("In Danger JS we don't include copyright headers, found them in: \(files)")
@@ -25,5 +24,12 @@ SwiftLint.lint(inline: true)
 let editedFiles = danger.git.modifiedFiles + danger.git.createdFiles
 let editedAppFiles = editedFiles.filter { $0.contains("/App") }
 message("Files:-\(editedFiles)")
+
+
+if danger.github.pullRequest.additions ?? 0 > 200 {
+  message("MR is too big")
+} else {
+  message("MR is GOOD")
+}
 
 message("Hello, this worked")
