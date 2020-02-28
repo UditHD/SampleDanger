@@ -25,11 +25,12 @@ let editedFiles = danger.git.modifiedFiles + danger.git.createdFiles
 let editedAppFiles = editedFiles.filter { $0.contains("/App") }
 message("Files:-\(editedFiles)")
 
-
-if danger.github.pullRequest.additions ?? 0 > 200 {
-  message("MR is too big")
-} else {
-  message("MR is GOOD")
+if danger.github != nil {
+  if danger.github.pullRequest.additions ?? 0 > 200 {
+    message("MR is too big")
+  } else {
+    message("MR is GOOD")
+  }
 }
 
 message("Hello, this worked")
