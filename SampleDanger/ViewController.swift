@@ -12,6 +12,7 @@ class ViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    check()
      print("checkdfgh")
      print("checkdfgh")
      print("checkdfgh")
@@ -648,9 +649,5 @@ class ViewController: UIViewController {
                                          
     // Do any additional setup after loading the view.
   }
-  
-  
-
-
 }
 

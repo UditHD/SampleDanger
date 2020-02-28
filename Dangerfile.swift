@@ -3,18 +3,18 @@ import Foundation
 
 let danger = Danger()
 //SwiftLint.lint()
-if danger.git.createdFiles.count + danger.git.modifiedFiles.count - danger.git.deletedFiles.count > 5 {
+if danger.git.createdFiles.count + danger.git.modifiedFiles.count - danger.git.deletedFiles.count > 25 {
     warn("Big PR, try to keep changes smaller if you can")
 }
 
-let swiftFilesWithCopyright = danger.git.createdFiles.filter {
-    $0.fileType == .swift
-        && danger.utils.readFile($0).contains("//  Created by")
+if !(danger.git.modifiedFiles.filter{ $0.contains("Podfile")}).isEmpty {
+  warn("Podfile is modified")
 }
-if !swiftFilesWithCopyright.isEmpty {
-    let files = swiftFilesWithCopyright.joined(separator: ", ")
-    warn("In Danger JS we don't include copyright headers, found them in: \(files)")
+
+if !(danger.git.modifiedFiles.filter{ $0.contains("Info.plist")}).isEmpty {
+  warn("Info.plist is modified")
 }
+
 
 //SwiftLint.lint(.modifiedAndCreatedFiles(directory: "Sources"), inline: true)
 SwiftLint.lint(inline: true)
@@ -25,11 +25,21 @@ let editedFiles = danger.git.modifiedFiles + danger.git.createdFiles
 let editedAppFiles = editedFiles.filter { $0.contains("/App") }
 message("Files:-\(editedFiles)")
 
-
-if danger.github.pullRequest.additions ?? 0 > 200 {
-  message("MR is too big")
-} else {
-  message("MR is GOOD")
+if let github = danger.github {
+  
+  if let additions = github.pullRequest.additions {
+    if additions > 200 {
+      fail("Big MR, consider splitting into smaller, Additions are \(additions)")
+    } else {
+      message("MR change count \(additions)")
+    }
+  }
+  if github.pullRequest.body?.count ?? 0 < 5 {
+    fail("MR Description is too short")
+  } else {
+    message("\(github.pullRequest.body ?? "No message")")
+  }
+  
 }
 
 message("Hello, this worked")
